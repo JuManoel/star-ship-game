@@ -1,0 +1,111 @@
+[gd_scene load_steps=14 format=3 uid="uid://diicw08lxpt2v"]
+
+[ext_resource type="Script" path="res://Alien/BombaInimiga.gd" id="1_m2u3e"]
+[ext_resource type="Texture2D" uid="uid://bdxmyap3se6iw" path="res://sprits/Bombas.png" id="2_g6pe7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqtxi"]
+size = Vector2(5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvvq2"]
+atlas = ExtResource("2_g6pe7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk72i"]
+atlas = ExtResource("2_g6pe7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_velao"]
+atlas = ExtResource("2_g6pe7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6425"]
+atlas = ExtResource("2_g6pe7")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgd23"]
+atlas = ExtResource("2_g6pe7")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k22yg"]
+atlas = ExtResource("2_g6pe7")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pljv5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvvq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xk72i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_velao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6425")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgd23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k22yg")
+}],
+"loop": true,
+"name": &"Cair",
+"speed": 12.0
+}]
+
+[sub_resource type="Animation" id="Animation_bbox5"]
+resource_name = "girar"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ef60"]
+_data = {
+"girar": SubResource("Animation_bbox5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mm3ku"]
+size = Vector2(5, 5)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D"]
+rotation = 6.28319
+collision_layer = 16
+collision_mask = 3
+sync_to_physics = false
+script = ExtResource("1_m2u3e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_iqtxi")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pljv5")
+animation = &"Cair"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7ef60")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_mm3ku")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

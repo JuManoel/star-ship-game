@@ -1,0 +1,177 @@
+[gd_scene load_steps=14 format=3 uid="uid://bst05yx6g6ywd"]
+
+[ext_resource type="Script" path="res://Game/Game.gd" id="1_15sxe"]
+[ext_resource type="PackedScene" uid="uid://nub7ittm34w7" path="res://Nave/Nave.tscn" id="1_djjuy"]
+[ext_resource type="Texture2D" uid="uid://cch6p5qngvms1" path="res://sprits/BackGrund2.jpg" id="2_lbprd"]
+[ext_resource type="Script" path="res://Game/Paredes.gd" id="3_qog1n"]
+[ext_resource type="FontFile" uid="uid://eka3mf2wclyw" path="res://Fonte/PixeloidMono-d94EV.ttf" id="6_pspv0"]
+[ext_resource type="Texture2D" uid="uid://c2anw6ofgkdju" path="res://sprits/Nave.png" id="6_xp6n3"]
+
+[sub_resource type="Animation" id="Animation_7p24y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cenario/Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-80, -224)]
+}
+
+[sub_resource type="Animation" id="Animation_3553a"]
+resource_name = "Voar"
+length = 30.0
+step = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cenario/Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-80, -224), Vector2(-80, 128)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xe5nm"]
+_data = {
+"RESET": SubResource("Animation_7p24y"),
+"Voar": SubResource("Animation_3553a")
+}
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_p4on6"]
+a = Vector2(-144, 64)
+b = Vector2(-144, 80)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2aef2"]
+a = Vector2(144, 64)
+b = Vector2(144, 80)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6ge3u"]
+a = Vector2(-136, 0)
+b = Vector2(152, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_1rj5c"]
+a = Vector2(152, 160)
+b = Vector2(-136, 160)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_15sxe")
+
+[node name="Cenario" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cenario"]
+root_node = NodePath("../..")
+autoplay = "Voar"
+libraries = {
+"": SubResource("AnimationLibrary_xe5nm")
+}
+
+[node name="Node2D" type="Node2D" parent="Cenario"]
+position = Vector2(-80, -224)
+
+[node name="Sprite2D1" type="Sprite2D" parent="Cenario/Node2D"]
+position = Vector2(80, 48)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_lbprd")
+flip_v = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="Cenario/Node2D"]
+position = Vector2(80, -128)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_lbprd")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Cenario/Node2D"]
+position = Vector2(80, 224)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_lbprd")
+
+[node name="Paredes" type="Node2D" parent="Cenario"]
+position = Vector2(-8, -80)
+
+[node name="Parede1" type="StaticBody2D" parent="Cenario/Paredes"]
+script = ExtResource("3_qog1n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cenario/Paredes/Parede1"]
+position = Vector2(8, 80)
+shape = SubResource("SegmentShape2D_p4on6")
+
+[node name="Parede2" type="StaticBody2D" parent="Cenario/Paredes"]
+script = ExtResource("3_qog1n")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Cenario/Paredes/Parede2"]
+position = Vector2(8, 80)
+shape = SubResource("SegmentShape2D_2aef2")
+
+[node name="Parede3" type="StaticBody2D" parent="Cenario/Paredes"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_qog1n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cenario/Paredes/Parede3"]
+shape = SubResource("SegmentShape2D_6ge3u")
+
+[node name="Parede4" type="StaticBody2D" parent="Cenario/Paredes"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_qog1n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cenario/Paredes/Parede4"]
+shape = SubResource("SegmentShape2D_1rj5c")
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(-8, -80)
+
+[node name="Nave" parent="Player" instance=ExtResource("1_djjuy")]
+position = Vector2(8, 152)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(8, 80)
+ignore_rotation = false
+zoom = Vector2(4, 4)
+
+[node name="Panel" type="Panel" parent="Player"]
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 144.0
+offset_bottom = 32.0
+
+[node name="Label" type="Label" parent="Player"]
+offset_left = 88.0
+offset_top = 8.0
+offset_right = 144.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("6_pspv0")
+theme_override_font_sizes/font_size = 9
+text = "sdafs"
+
+[node name="vidas" type="Node2D" parent="Player"]
+position = Vector2(-112, 8)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/vidas"]
+position = Vector2(-16, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_xp6n3")
+hframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="Player/vidas"]
+position = Vector2(-8, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_xp6n3")
+hframes = 2
+frame = 1
+
+[node name="Sprite2D3" type="Sprite2D" parent="Player/vidas"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_xp6n3")
+hframes = 2
+
+[node name="Caminhos" type="Node2D" parent="."]
+
+[connection signal="gameOver" from="Player/Nave" to="." method="_on_nave_game_over"]

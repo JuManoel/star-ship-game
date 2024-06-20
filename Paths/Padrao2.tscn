@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://c58aifyl6f6op"]
+
+[ext_resource type="Script" path="res://Paths/Padrao1.gd" id="1_hkhg0"]
+[ext_resource type="PackedScene" uid="uid://daa0s78n7gg6j" path="res://Alien/Inimigo1.tscn" id="2_gg2kq"]
+
+[sub_resource type="Curve2D" id="Curve2D_mc0mt"]
+_data = {
+"points": PackedVector2Array(-11.2373, -11.2373, 11.2373, 11.2373, -64, 0, -11.9865, -0.374576, 11.9865, 0.374576, 0, 0, -0.374577, 11.9865, 0.374577, -11.9865, 64, 0, 21.3509, 7.49154, -21.3509, -7.49154, 48, -48, 20.6017, -10.1136, -20.6017, 10.1136, -48, -48, -1.12373, -7.86611, 1.12373, 7.86611, -64, 0)
+}
+point_count = 6
+
+[node name="Padrao1" type="Path2D"]
+curve = SubResource("Curve2D_mc0mt")
+script = ExtResource("1_hkhg0")
+metadata/_edit_group_ = true
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(-64, 0)
+rotates = false
+
+[node name="Inimigo1" parent="PathFollow2D" instance=ExtResource("2_gg2kq")]
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="."]
+position = Vector2(-11.0623, 1.06222)
+progress = 54.2097
+rotates = false
+
+[node name="Inimigo1" parent="PathFollow2D2" instance=ExtResource("2_gg2kq")]
+
+[node name="PathFollow2D3" type="PathFollow2D" parent="."]
+position = Vector2(42.6909, 5.16747)
+progress = 108.387
+rotates = false
+
+[node name="Inimigo1" parent="PathFollow2D3" instance=ExtResource("2_gg2kq")]
+
+[node name="PathFollow2D4" type="PathFollow2D" parent="."]
+position = Vector2(63.1447, -30.6618)
+progress = 162.596
+rotates = false
+
+[node name="Inimigo1" parent="PathFollow2D4" instance=ExtResource("2_gg2kq")]
+
+[node name="PathFollow2D5" type="PathFollow2D" parent="."]
+position = Vector2(18.4123, -53.5569)
+progress = 216.806
+rotates = false
+
+[node name="Inimigo1" parent="PathFollow2D5" instance=ExtResource("2_gg2kq")]
+
+[node name="PathFollow2D6" type="PathFollow2D" parent="."]
+position = Vector2(-35.5815, -51.9573)
+progress = 270.983
+rotates = false
+
+[node name="Inimigo1" parent="PathFollow2D6" instance=ExtResource("2_gg2kq")]
+
+[node name="Tiro_lixo" type="Node2D" parent="."]
+
+[connection signal="morte" from="PathFollow2D/Inimigo1" to="." method="_on_inimigo_1_morte"]
+[connection signal="morte" from="PathFollow2D2/Inimigo1" to="." method="_on_inimigo_1_morte"]
+[connection signal="morte" from="PathFollow2D3/Inimigo1" to="." method="_on_inimigo_1_morte"]
+[connection signal="morte" from="PathFollow2D4/Inimigo1" to="." method="_on_inimigo_1_morte"]
+[connection signal="morte" from="PathFollow2D5/Inimigo1" to="." method="_on_inimigo_1_morte"]
+[connection signal="morte" from="PathFollow2D6/Inimigo1" to="." method="_on_inimigo_1_morte"]

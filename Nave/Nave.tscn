@@ -1,0 +1,175 @@
+[gd_scene load_steps=14 format=3 uid="uid://nub7ittm34w7"]
+
+[ext_resource type="Script" path="res://Nave/Nave.gd" id="1_teeqp"]
+[ext_resource type="Texture2D" uid="uid://c2anw6ofgkdju" path="res://sprits/Nave.png" id="2_o166v"]
+
+[sub_resource type="Animation" id="Animation_a3kyc"]
+resource_name = "Tiro1"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"tiro1"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2de04"]
+resource_name = "Tiro2"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"tiro2"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0tyy1"]
+resource_name = "Tiro3"
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"tiro3"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_r7lhm"]
+resource_name = "Tiro4"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"tiro1"
+}, {
+"args": [],
+"method": &"tiro3"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_g1a7s"]
+resource_name = "Tiro5"
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"tiro2"
+}, {
+"args": [],
+"method": &"tiro3"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ud8c4"]
+resource_name = "Tiro6"
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"tiro3"
+}, {
+"args": [],
+"method": &"tiro3"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x35ex"]
+_data = {
+"Tiro1": SubResource("Animation_a3kyc"),
+"Tiro2": SubResource("Animation_2de04"),
+"Tiro3": SubResource("Animation_0tyy1"),
+"Tiro4": SubResource("Animation_r7lhm"),
+"Tiro5": SubResource("Animation_g1a7s"),
+"Tiro6": SubResource("Animation_ud8c4")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysyke"]
+atlas = ExtResource("2_o166v")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxlib"]
+atlas = ExtResource("2_o166v")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1brbt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysyke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxlib")
+}],
+"loop": true,
+"name": &"Normal",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7w00p"]
+radius = 5.5
+
+[node name="NavePlayer" type="CharacterBody2D"]
+light_mask = 0
+collision_layer = 2
+collision_mask = 21
+script = ExtResource("1_teeqp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+libraries = {
+"": SubResource("AnimationLibrary_x35ex")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_1brbt")
+animation = &"Normal"
+frame_progress = 0.776208
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 0)
+shape = SubResource("CircleShape2D_7w00p")

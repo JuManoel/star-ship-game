@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsj7blf1od7gc"]
+
+[ext_resource type="Script" path="res://Game/GameOver.gd" id="1_g8krc"]
+[ext_resource type="Texture2D" uid="uid://dv6sbpagecf3n" path="res://sprits/BackGrund.jpg" id="2_dfoij"]
+[ext_resource type="FontFile" uid="uid://eka3mf2wclyw" path="res://Fonte/PixeloidMono-d94EV.ttf" id="3_ughpw"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_g8krc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(580, 352)
+scale = Vector2(1.14844, 1)
+texture = ExtResource("2_dfoij")
+
+[node name="MenuBar" type="MenuBar" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Panel" type="Panel" parent="MenuBar"]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 121.0
+offset_right = 696.0
+offset_bottom = 185.0
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="MenuBar/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 12.2
+anchor_top = 1.4
+anchor_right = 16.2
+anchor_bottom = 2.4
+offset_left = -2529.6
+offset_top = -81.6
+offset_right = -3072.6
+offset_bottom = -98.5999
+theme_override_fonts/font = ExtResource("3_ughpw")
+theme_override_font_sizes/font_size = 36
+text = "GameOver"
+
+[node name="Start" type="Button" parent="MenuBar"]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 294.0
+offset_right = 720.0
+offset_bottom = 325.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ughpw")
+text = "Try Again?"
+
+[node name="Quit" type="Button" parent="MenuBar"]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 416.0
+offset_right = 720.0
+offset_bottom = 447.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ughpw")
+text = "Give Up"
+
+[connection signal="pressed" from="MenuBar/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MenuBar/Quit" to="." method="_on_quit_pressed"]
