@@ -6,4 +6,4 @@ I know that I can improve the project, putting more enemys, new guns and maybe a
 To make the sprites I used Pixel Studio, it is free on steam, and also I was hepd by <a href="https://github.com/ValberGusmao">ValberGusmao</a><br>
 to make the sprits and he gave me a few ideas.<br>
 The version of gotod was 4.1<br>
-If you want to impruve it please fell free to download it and text to me in <a href="http://discordapp.com/users/809008002346516480">My discord</a>
+If you want to improve it please fell free to download it and text to me in <a href="http://discordapp.com/users/809008002346516480">My discord</a>
